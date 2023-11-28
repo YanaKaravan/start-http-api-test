@@ -30,6 +30,7 @@ describe('user', () => {
       expect(res.body.code).toEqual(1011)
     })
   })
+<<<<<<< HEAD
   
   describe('POST /Account/v1/User', () => {
     test('Получение информации о пользователе', async() => {
@@ -65,3 +66,38 @@ describe('user', () => {
     })
   })
  })
+=======
+})
+
+describe('token', () => {
+  describe('POST /api/v1/GenerateToken', () => {
+    test('Метод должен существовать', async () => {
+      const res = await supertest('https://bookstore.demoqa.com/swagger/')
+          .post('/api/v1/GenerateToken')
+          .send({})
+
+      expect(res.status).not.toEqual(404);
+    })
+
+    test('Генерация токена успешно', async () => {
+      const res = await supertest('https://bookstore.demoqa.com/swagger/')
+          .post('/api/v1/GenerateToken')
+          .set('Accept', 'application/json')
+          .send({username: 'demotoken', password: 'demotoken'})
+
+      expect(res.status).toEqual(200);
+      expect(typeof res.body.token).toEqual('string')
+    })
+
+    test('Генерация токена c ошибкой', async () => {
+      const res = await supertest('https://bookstore.demoqa.com/swagger/')
+          .post('/api/v1/GenerateToken')
+          .set('Accept', 'application/json')
+          .send({username: 'demotoken5', password: 'demotoken'})
+
+      expect(res.status).toEqual(400);
+      expect(res.body.code).toEqual (0)
+    })
+  })
+})
+>>>>>>> 04f3b8f783609820d0ed68e36fe65d34e753345f
